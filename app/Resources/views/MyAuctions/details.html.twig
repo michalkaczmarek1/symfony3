@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	 <div class="card">
+      <div class="card-header">
+        <h4>{{ auction.title }}</h4>
+      </div>
+      <div class="card-body">
+     	<p>
+        	{{ auction.description }}
+        </p>
+        <p>Cena(w PLN): 
+        	{{ auction.price }} 
+        </p>
+         <p>Cena wywoławcza(w PLN): 
+        	{{ auction.startingPrice }} 
+        </p>
+        <p>Data zakończenia aukcji: 
+        	{{ auction.expiresAt| date("Y-m-d H:i:s") }} 
+        </p>
+      </div>
+	</div>
+	<div class="card">
+    	  <div class="card-header">
+ 			Oferty
+          </div>
+          <div class="card-body">
+         	<ul>
+         	{% for offer in auction.offers %}
+         		<li>Oferta {{ offer.price }} zł, złożona {{ offer.createdAt | date("Y-m-d H:i:s") }} </li>
+         	{% endfor %}
+         	</ul>
+          </div>
+	</div>
+	
+	<a class="btn btn-primary" style="float: left;" href="{{ url("my_auction_index") }}">Cofnij</a>
+	<a class="btn btn-info" style="float: left;" href="{{ url("my_auction_edit", {"id": auction.id})  }}">Edytuj</a>
+	
+	{{ form_start(deleteForm, {"attr": {"style": "float: left;"}}) }}
+    	{{ form_widget(deleteForm.submit, {"attr": {"class": "btn-danger"}}) }}
+    	{{ form_rest(deleteForm) }}
+	{{ form_end(deleteForm) }}
+	
+	{{ form_start(finishForm, {"attr": {"style": "float: left;"}}) }}
+    	{{ form_widget(finishForm.submit, {"attr": {"class": "btn-warning"}}) }}
+    	{{ form_rest(finishForm) }}
+	{{ form_end(finishForm) }}
+
+	
+	<div class="clearfix"></div>
+		
+{% endblock %}

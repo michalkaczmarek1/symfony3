@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Lista aukcji</h1>
+
+{% for auction in auctions %}
+
+   <div class="card">
+      <div class="card-header">
+        <h4><a href="{{ url("auction_details", {"id": auction.id}) }}">{{ auction.title }}</a></h4>
+      </div>
+      <div class="card-body">
+     	<p>
+        	{{ auction.description }}
+        </p>
+        <p>Cena(w PLN): 
+        	{{ auction.price }} 
+        </p>
+        <p>Cena wywoławcza(w PLN): 
+        	{{ auction.startingPrice }} 
+        </p>
+        <p>Data zakończenia aukcji: 
+        	{{ auction.expiresAt| date("Y-m-d H:i:s") }} 
+        </p>
+      </div>
+	</div>
+{% else %}
+	<div class="card">
+		<div class="card-header">
+		<h4>Komunikat</h4>
+		</div>
+		<div class="card-body">
+			<p>Niestety brak aktywnej aukcji</p>
+		</div>	
+	</div>
+{% endfor %}
+{% endblock %}
